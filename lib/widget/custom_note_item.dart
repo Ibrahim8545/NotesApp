@@ -22,7 +22,7 @@ class NoteItem extends StatelessWidget {
             child: Text(
               'i love m4 men',
               style:
-                  TextStyle(color: Colors.black.withOpacity(.5), fontSize: 17),
+                  TextStyle(color: Colors.black.withOpacity(.5), fontSize: 18),
             ),
           ),
           trailing: IconButton(
