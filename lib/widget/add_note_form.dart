@@ -19,66 +19,65 @@ class AddNoteForm extends StatefulWidget {
 }
 
 class _AddNoteFormState extends State<AddNoteForm> {
+  final GlobalKey<FormState> formKey = GlobalKey();
 
-  final GlobalKey<FormState> formKey=GlobalKey();
-  
-  //to catch error when enter to validate any wrong input 
-  AutovalidateMode autovalidateMode=AutovalidateMode.disabled;
-  String? title,subTitle;
+  //to catch error when enter to validate any wrong input
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  String? title, subTitle;
   @override
-
   Widget build(BuildContext context) {
     return Form(
-      key:formKey,
+      key: formKey,
       autovalidateMode: autovalidateMode,
-      child:   Column(
+      child: Column(
         children: [
-           const SizedBox(height: 32,),
+          const SizedBox(
+            height: 32,
+          ),
           CustomTextField(
-            onSaved: (value)
-            {
-              title=value;
+            onSaved: (value) {
+              title = value;
             },
             hint: 'Title',
           ),
-           const SizedBox(
+          const SizedBox(
             height: 16,
           ),
           CustomTextField(
-            onSaved: (value)
-            {
-              subTitle=value;
+            onSaved: (value) {
+              subTitle = value;
             },
             hint: 'Content',
             maxLines: 5,
           ),
-            const  SizedBox(
+          const SizedBox(
             height: 36,
           ),
-          CustomButton(
-            onTap:()
-            {
-              if(formKey.currentState!.validate())
-              {
-                formKey.currentState!.save();
-                BlocProvider.of<AddNotesCubit>(context).addNote(
-                  NotesModel(title: title!, subTitle: subTitle!, date: DateTime.now().toString(), color: Colors.blue.value));
-              }
-              else
-              {
-                autovalidateMode=AutovalidateMode.always;
-                setState(() {
-                  
-                });
-              }
-            }
+          BlocBuilder<AddNotesCubit, AddNotesState>(
+            builder: (context, state) {
+              return CustomButton(
+                isLoading: state is AddNotesLoading ?true:false,
+                onTap: () {
+                
+                if (formKey.currentState!.validate()) {
+                  formKey.currentState!.save();
+                  BlocProvider.of<AddNotesCubit>(context).addNote(NotesModel(
+                      title: title!,
+                      subTitle: subTitle!,
+                      date: DateTime.now().toString(),
+                      color: Colors.blue.value));
+                } else {
+                  autovalidateMode = AutovalidateMode.always;
+                  setState(() {});
+                }
+              });
+            },
           ),
-          const  SizedBox(
+          const SizedBox(
             height: 16,
-          ),        
+          ),
         ],
       ),
     );
   }
 }
-
