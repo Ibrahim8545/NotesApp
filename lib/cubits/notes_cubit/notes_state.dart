@@ -1,23 +1,13 @@
-import 'package:notesapp/note/note_model.dart';
+part of 'notes_cubit.dart';
+
+@immutable
+sealed class NotesState {}
+
+final class NotesInitial extends NotesState {}
 
 
 
 
-
-
-
-abstract class NotesState {}
-
-class NotesInitial extends NotesState {}
-
-class NotesLoading extends NotesState {}
-
-class NoteSuccess extends NotesState {
-  final List<NotesModel> notes;
-  NoteSuccess(this.notes);
-}
-
-class NoteFailure extends NotesState {
-  final String errorMessage;
-  NoteFailure(this.errorMessage);
+class NotesSuccess extends NotesState
+{
 }
