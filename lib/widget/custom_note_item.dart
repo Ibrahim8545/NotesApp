@@ -54,6 +54,7 @@ final NotesModel note;
               onPressed:() 
               {
                note.delete();
+               BlocProvider.of<NotesCubit>(context).fetchAllNotes();
 
               },
               icon: const Icon(
