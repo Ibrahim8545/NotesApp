@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:notesapp/cubits/notes_cubit/notes_cubit.dart';
 import 'package:notesapp/note/note_model.dart';
 import 'package:notesapp/views/edit_note_view.dart';
 
@@ -49,11 +51,15 @@ final NotesModel note;
 
 
             trailing: IconButton(
-              onPressed: () {},
+              onPressed:() 
+              {
+               note.delete();
+
+              },
               icon: const Icon(
                 FontAwesomeIcons.trash,
                 color: Colors.black,
-                size: 24,      
+                size: 30,      
               ),
             ),
           ),
@@ -61,7 +67,10 @@ final NotesModel note;
             padding: const EdgeInsets.only(right: 24),
             child: Text(
               note.date,
-              style: TextStyle(color: Colors.black.withOpacity(.4), fontSize: 16),
+              style: TextStyle(
+                color: Colors.black.withOpacity(.4), 
+                fontSize: 16
+                ),
             ),
           ),
         ]),
